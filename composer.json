@@ -1,0 +1,15 @@
+{
+    "name": "bdv/samplest",
+    "version": "0.1",
+    "autoload": {
+        "psr-4": {
+            "Samplest\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
+}

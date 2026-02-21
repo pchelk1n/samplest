@@ -1,0 +1,14 @@
+name: samplest
+
+services:
+    php-cli:
+        build:
+            context: php-cli
+            args:
+                USER_ID: ${USER_ID}
+        volumes:
+            - ../:/app/
+            - composer_cache:/home/dev/.composer
+
+volumes:
+    composer_cache:
