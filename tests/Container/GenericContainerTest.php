@@ -12,22 +12,36 @@ final class GenericContainerTest extends TestCase
     public function testRegister(): void
     {
         $container = new GenericContainer();
-        $container->register(C::class, fn() => new C());
+        $container->register(C::class, static fn() => new C());
 
-        $obj = $container->get(C::class);
+        $cObj = $container->get(C::class);
 
-        self::assertInstanceOf(C::class, $obj);
+        self::assertInstanceOf(C::class, $cObj);
     }
 
     public function testAutowire(): void
     {
         $container = new GenericContainer();
 
-        $a = $container->get(A::class);
+        $aObject = $container->get(A::class);
 
-        self::assertInstanceOf(A::class, $a);
-        self::assertInstanceOf(B::class, $a->b);
-        self::assertInstanceOf(C::class, $a->b->c);
+        self::assertInstanceOf(A::class, $aObject);
+        self::assertInstanceOf(B::class, $aObject->b);
+        self::assertInstanceOf(C::class, $aObject->b->c);
+    }
+
+    public function testSingleton(): void
+    {
+        $container = new GenericContainer();
+
+        $container->singleton(Singleton::class, static fn() => new Singleton());
+
+        $singletonObject = $container->get(Singleton::class);
+        self::assertInstanceOf(Singleton::class, $singletonObject);
+        self::assertSame(1, $singletonObject::$count);
+
+        $singletonObject = $container->get(Singleton::class);
+        self::assertSame(1, $singletonObject::$count);
     }
 }
 
@@ -48,4 +62,14 @@ class B
 
 class C
 {
+}
+
+class Singleton
+{
+    public static int $count = 0;
+
+    public function __construct()
+    {
+        ++self::$count;
+    }
 }

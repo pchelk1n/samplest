@@ -12,6 +12,8 @@ final class GenericContainer implements Container
 {
     private array $definitions = [];
 
+    private array $singletons = [];
+
     public function register(string $className, callable $definition): Container
     {
         $this->definitions[$className] = $definition;
@@ -19,8 +21,21 @@ final class GenericContainer implements Container
         return $this;
     }
 
+    public function singleton(string $className, callable $definition): Container
+    {
+        $this->singletons[$className] = $definition();
+
+        return $this;
+    }
+
     public function get(string $className): object
     {
+        $singletonObject = $this->singletons[$className] ?? null;
+
+        if ($singletonObject !== null) {
+            return $singletonObject;
+        }
+
         $definition = $this->definitions[$className] ?? $this->autowire(...);
 
         return $definition($className);
