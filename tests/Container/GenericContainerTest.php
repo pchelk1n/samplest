@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Container;
+namespace Test\Container;
 
 use Samplest\Container\GenericContainer;
 use PHPUnit\Framework\TestCase;
