@@ -28,6 +28,14 @@ final class GenericContainerTest extends TestCase
         self::assertInstanceOf(A::class, $aObject);
         self::assertInstanceOf(B::class, $aObject->b);
         self::assertInstanceOf(C::class, $aObject->b->c);
+
+        $cObject = $container->get(C::class);
+        self::assertInstanceOf(C::class, $cObject);
+        self::assertNotSame($cObject, $aObject->b->c);
+
+        $aObject2 = $container->get(A::class);
+
+        self::assertNotSame($aObject, $aObject2);
     }
 
     public function testSingleton(): void
@@ -40,8 +48,10 @@ final class GenericContainerTest extends TestCase
         self::assertInstanceOf(Singleton::class, $singletonObject);
         self::assertSame(1, $singletonObject::$count);
 
-        $singletonObject = $container->get(Singleton::class);
-        self::assertSame(1, $singletonObject::$count);
+        $sameSingletonObject = $container->get(Singleton::class);
+        self::assertSame(1, $sameSingletonObject::$count);
+
+        self::assertSame($singletonObject, $sameSingletonObject);
     }
 }
 
