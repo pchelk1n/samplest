@@ -10,7 +10,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Samplest\\": "src/"
+            "Samplest\\": "src/",
+            "App\\": "app/"
         }
     },
     "autoload-dev": {

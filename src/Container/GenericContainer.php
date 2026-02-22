@@ -23,7 +23,13 @@ final class GenericContainer implements Container
 
     public function singleton(string $className, callable $definition): Container
     {
-        $this->singletons[$className] = $definition();
+        $this->definitions[$className] = function () use ($className, $definition): object {
+            $instance = $definition($this);
+
+            $this->singletons[$className] = $instance;
+
+            return $instance;
+        };
 
         return $this;
     }

@@ -12,7 +12,7 @@ final class GenericContainerTest extends TestCase
     public function testRegister(): void
     {
         $container = new GenericContainer();
-        $container->register(C::class, static fn() => new C());
+        $container->register(C::class, static fn(): C => new C());
 
         $cObj = $container->get(C::class);
 
@@ -42,7 +42,7 @@ final class GenericContainerTest extends TestCase
     {
         $container = new GenericContainer();
 
-        $container->singleton(Singleton::class, static fn() => new Singleton());
+        $container->singleton(Singleton::class, static fn(): Singleton => new Singleton());
 
         $singletonObject = $container->get(Singleton::class);
         self::assertInstanceOf(Singleton::class, $singletonObject);
