@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Test\SDK;
 
 use App\Controller\HomeController;
+use PHPUnit\Framework\TestCase;
 use Samplest\Container\Container;
 use Samplest\Container\GenericContainer;
 use Samplest\Http\Router\GenericRouter;
 use Samplest\Http\Router\Router;
 use Samplest\Http\Router\RouterConfig;
 
-class TestCase extends \PHPUnit\Framework\TestCase
+class SamplestTestCase extends TestCase
 {
     protected Container $container;
 

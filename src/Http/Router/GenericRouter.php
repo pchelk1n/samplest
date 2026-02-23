@@ -41,17 +41,20 @@ final readonly class GenericRouter implements Router
                     continue;
                 }
 
-                if ($route->uri !== $request->getUri()) {
+                $controller = $this->container->get($controllerClass);
+                $methodName = $method->getName();
+
+                if ($route->uri === $request->getUri()) {
+                    return $controller->$methodName();
+                }
+
+                $controllerMethodParams = $this->resolveParams($route->uri, $request->getUri());
+
+                if ($controllerMethodParams === null) {
                     continue;
                 }
 
-                $methodName = $method->getName();
-
-                $controller = $this->container->get($controllerClass);
-
-                $params = $this->resolveParams($route->uri, $request->getUri());
-
-                return $controller->$methodName(...$params);
+                return $controller->$methodName(...$controllerMethodParams);
             }
 
         }
@@ -68,6 +71,31 @@ final readonly class GenericRouter implements Router
 
         $tokens = $tokens[0];
 
-        return [];
+        $regexPattern = sprintf(
+            '/^%s$/',
+            str_replace(
+                ['/', ...$tokens],
+                ['\\/', ...array_fill(0, count($tokens), '([\w\d\s]+)')],
+                $routeUri,
+            ),
+        );
+
+        $result = preg_match_all($regexPattern, $requestUri, $matches);
+
+        if ($result === 0) {
+            return null;
+        }
+
+        unset($matches[0]);
+
+        $matches = array_values($matches);
+
+        $valueMap = [];
+
+        foreach ($matches as $index => $match) {
+            $valueMap[trim($tokens[$index], '{}')] = $match[0];
+        }
+
+        return $valueMap;
     }
 }

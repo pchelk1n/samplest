@@ -11,6 +11,7 @@ use Samplest\Http\Router\Get;
 
 final readonly class HomeController
 {
+
     #[Get(uri: '/home')]
     public function index(): Response
     {

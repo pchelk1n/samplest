@@ -8,9 +8,9 @@ use Samplest\Http\Request\GenericRequest;
 use Samplest\Http\Request\Method;
 use Samplest\Http\Response\Status;
 use Samplest\Http\Router\Router;
-use Test\SDK\TestCase;
+use Test\SDK\SamplestTestCase;
 
-final class GenericRouterTest extends TestCase
+final class GenericRouterSamplestTest extends SamplestTestCase
 {
     public function testGetRoute(): void
     {
