@@ -54,7 +54,7 @@ final class GenericContainer implements Container
     {
         $reflectionClass = new ReflectionClass($className);
         $parameters = array_map(
-            fn (ReflectionParameter $parameter): object => $this->get($parameter->getType()?->getName()),
+            fn(ReflectionParameter $parameter): object => $this->get($parameter->getType()?->getName()),
             $reflectionClass->getConstructor()?->getParameters() ?? [],
         );
 

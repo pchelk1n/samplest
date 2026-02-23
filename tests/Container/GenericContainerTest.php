@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Test\Container;
 
-use Samplest\Container\GenericContainer;
 use PHPUnit\Framework\TestCase;
+use Samplest\Container\GenericContainer;
 
 final class GenericContainerTest extends TestCase
 {
@@ -70,9 +70,7 @@ class B
     ) {}
 }
 
-class C
-{
-}
+class C {}
 
 class Singleton
 {

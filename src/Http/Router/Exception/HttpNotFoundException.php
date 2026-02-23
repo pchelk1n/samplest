@@ -6,6 +6,4 @@ namespace Samplest\Http\Router\Exception;
 
 use Exception;
 
-final class HttpNotFoundException extends Exception
-{
-}
+final class HttpNotFoundException extends Exception {}

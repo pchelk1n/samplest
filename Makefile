@@ -26,3 +26,19 @@ down:
 
 shell:
 	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli $(CLI_ARGS)
+
+check:
+	make php-cs-fixer-check
+	make phpunit
+
+fix:
+	make php-cs-fixer-fix
+
+php-cs-fixer-check:
+	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli vendor/bin/php-cs-fixer fix --dry-run --diff
+
+php-cs-fixer-fix:
+	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli vendor/bin/php-cs-fixer fix --diff
+
+phpunit:
+	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli vendor/bin/phpunit
