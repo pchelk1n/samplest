@@ -1,0 +1,73 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [ 'main' ]
+
+permissions:
+  contents: read
+
+jobs:
+  composer:
+    name: Check composer on PHP ${{ matrix.php }}-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        php:
+          - "8.2"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+      - name: Audit composer
+        run: composer audit
+
+  code-style:
+    name: Check code style on PHP ${{ matrix.php }}-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        php:
+          - "8.2"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+      - name: Install dependencies
+        run: composer install
+      - name: php-cs-fixer
+        run: vendor/bin/php-cs-fixer --dry-run
+
+  tests:
+    name: Check tests on PHP ${{ matrix.php }}-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        php:
+          - "8.2"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+      - name: Install dependencies
+        run: composer install
+      - name: phpunit
+        run: vendor/bin/phpunit

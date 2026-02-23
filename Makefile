@@ -28,6 +28,8 @@ shell:
 	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli $(CLI_ARGS)
 
 check:
+	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli composer validate
+	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli composer audit
 	make php-cs-fixer-check
 	make phpunit
 
