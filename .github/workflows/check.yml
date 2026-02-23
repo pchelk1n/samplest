@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         run: composer install
       - name: php-cs-fixer
-        run: vendor/bin/php-cs-fixer --dry-run
+        run: vendor/bin/php-cs-fixer fix --dry-run
 
   tests:
     name: Check tests on PHP ${{ matrix.php }}-${{ matrix.os }}
