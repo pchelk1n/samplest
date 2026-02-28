@@ -49,7 +49,7 @@ jobs:
           coverage: none
       - name: Install dependencies
         run: composer install
-      - name: php-cs-fixer
+      - name: Run php-cs-fixer
         run: vendor/bin/php-cs-fixer fix --dry-run --show-progress=none
 
   code-standard:
@@ -70,8 +70,29 @@ jobs:
           coverage: none
       - name: Install dependencies
         run: composer install
-      - name: php-cs-fixer
+      - name: Run rector
         run: vendor/bin/rector --dry-run --no-progress-bar
+
+  static-analysis:
+    name: Check static analysis on PHP ${{ matrix.php }}-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        php:
+          - "8.5"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+      - name: Install dependencies
+        run: composer install
+      - name: Run phpstan
+        run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress
 
   tests:
     name: Check tests on PHP ${{ matrix.php }}-${{ matrix.os }}
@@ -91,5 +112,5 @@ jobs:
           coverage: none
       - name: Install dependencies
         run: composer install
-      - name: phpunit
+      - name: Run phpunit
         run: vendor/bin/phpunit

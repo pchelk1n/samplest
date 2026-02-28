@@ -14,6 +14,9 @@ interface Request
         get;
     }
 
+    /**
+     * @var array<string, string> $body
+     */
     public array $body {
         get;
     }

@@ -32,6 +32,7 @@ check:
 	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli composer audit
 	make rector-check
 	make php-cs-fixer-check
+	make phpstan
 	make phpunit
 
 fix:
@@ -51,3 +52,6 @@ rector-check:
 
 rector-fix:
 	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli vendor/bin/rector
+
+phpstan:
+	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli vendor/bin/phpstan analyse -c phpstan.neon

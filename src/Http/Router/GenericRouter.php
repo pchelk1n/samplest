@@ -62,6 +62,9 @@ final readonly class GenericRouter implements Router
         throw new HttpNotFoundException('Controller not found');
     }
 
+    /**
+     * @return array<string, string>|null
+     */
     private function resolveParams(string $routeUri, string $requestUri): ?array
     {
         $result = preg_match_all('/\{\w+}/', $routeUri, $tokens);

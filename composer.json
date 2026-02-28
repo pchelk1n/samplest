@@ -9,7 +9,8 @@
         "phpunit/phpunit": "^13.0",
         "symfony/var-dumper": "^v8.0",
         "friendsofphp/php-cs-fixer": "^3.94",
-        "rector/rector": "^2.3"
+        "rector/rector": "^2.3",
+        "phpstan/phpstan": "^2.1"
     },
     "autoload": {
         "psr-4": {

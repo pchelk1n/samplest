@@ -1,0 +1,9 @@
+parameters:
+	level: 6
+	parallel:
+		jobSize: 20
+		maximumNumberOfProcesses: 8
+		minimumNumberOfJobsPerProcess: 2
+	paths:
+		- src
+		- app
