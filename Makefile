@@ -30,6 +30,7 @@ shell:
 check:
 	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli composer validate
 	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli composer audit
+	make rector-check
 	make php-cs-fixer-check
 	make phpunit
 
@@ -44,3 +45,9 @@ php-cs-fixer-fix:
 
 phpunit:
 	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli vendor/bin/phpunit
+
+rector-check:
+	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli vendor/bin/rector --dry-run
+
+rector-fix:
+	$(DOCKER_COMPOSE_COMMAND) run --rm php-cli vendor/bin/rector

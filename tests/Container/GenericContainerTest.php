@@ -16,7 +16,7 @@ final class GenericContainerTest extends TestCase
 
         $cObj = $container->get(C::class);
 
-        self::assertInstanceOf(C::class, $cObj);
+        $this->assertInstanceOf(C::class, $cObj);
     }
 
     public function testAutowire(): void
@@ -25,17 +25,17 @@ final class GenericContainerTest extends TestCase
 
         $aObject = $container->get(A::class);
 
-        self::assertInstanceOf(A::class, $aObject);
-        self::assertInstanceOf(B::class, $aObject->b);
-        self::assertInstanceOf(C::class, $aObject->b->c);
+        $this->assertInstanceOf(A::class, $aObject);
+        $this->assertInstanceOf(B::class, $aObject->b);
+        $this->assertInstanceOf(C::class, $aObject->b->c);
 
         $cObject = $container->get(C::class);
-        self::assertInstanceOf(C::class, $cObject);
-        self::assertNotSame($cObject, $aObject->b->c);
+        $this->assertInstanceOf(C::class, $cObject);
+        $this->assertNotSame($cObject, $aObject->b->c);
 
         $aObject2 = $container->get(A::class);
 
-        self::assertNotSame($aObject, $aObject2);
+        $this->assertNotSame($aObject, $aObject2);
     }
 
     public function testSingleton(): void
@@ -45,13 +45,13 @@ final class GenericContainerTest extends TestCase
         $container->singleton(Singleton::class, static fn(): Singleton => new Singleton());
 
         $singletonObject = $container->get(Singleton::class);
-        self::assertInstanceOf(Singleton::class, $singletonObject);
-        self::assertSame(1, $singletonObject::$count);
+        $this->assertInstanceOf(Singleton::class, $singletonObject);
+        $this->assertSame(1, $singletonObject::$count);
 
         $sameSingletonObject = $container->get(Singleton::class);
-        self::assertSame(1, $sameSingletonObject::$count);
+        $this->assertSame(1, $sameSingletonObject::$count);
 
-        self::assertSame($singletonObject, $sameSingletonObject);
+        $this->assertSame($singletonObject, $sameSingletonObject);
     }
 }
 

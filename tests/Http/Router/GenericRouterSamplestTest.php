@@ -22,7 +22,7 @@ final class GenericRouterSamplestTest extends SamplestTestCase
         ));
 
         $this->assertSame(Status::HTTP_200, $response->status);
-        self::assertSame('test', $response->body);
+        $this->assertSame('test', $response->body);
     }
 
     public function testGetRouteWithVariables(): void
@@ -35,6 +35,6 @@ final class GenericRouterSamplestTest extends SamplestTestCase
         ));
 
         $this->assertSame(Status::HTTP_200, $response->status);
-        self::assertSame('dima', $response->body);
+        $this->assertSame('dima', $response->body);
     }
 }

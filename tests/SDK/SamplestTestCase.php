@@ -16,11 +16,11 @@ class SamplestTestCase extends TestCase
 {
     protected Container $container;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->container = new GenericContainer();
 
-        $this->container->singleton(Container::class, fn() => $this->container);
+        $this->container->singleton(Container::class, fn(): GenericContainer => $this->container);
 
         $this->container->singleton(
             className: Router::class,
