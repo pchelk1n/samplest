@@ -1,4 +1,4 @@
-FROM php:8.2.30-cli
+FROM php:8.5.3-cli
 
 RUN apt-get update; \
     apt-get install -y --no-install-recommends unzip git;

@@ -37,18 +37,18 @@ final readonly class GenericRouter implements Router
                 /** @var Route $route */
                 $route = $routeAttribute->newInstance();
 
-                if ($route->method !== $request->getMethod()) {
+                if ($route->method !== $request->method) {
                     continue;
                 }
 
                 $controller = $this->container->get($controllerClass);
                 $methodName = $method->getName();
 
-                if ($route->uri === $request->getUri()) {
+                if ($route->uri === $request->uri) {
                     return $controller->$methodName();
                 }
 
-                $controllerMethodParams = $this->resolveParams($route->uri, $request->getUri());
+                $controllerMethodParams = $this->resolveParams($route->uri, $request->uri);
 
                 if ($controllerMethodParams === null) {
                     continue;

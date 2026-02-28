@@ -6,7 +6,11 @@ namespace Samplest\Http\Response;
 
 interface Response
 {
-    public function getStatus(): Status;
+    public Status $status {
+        get;
+    }
 
-    public function getBody(): string;
+    public string $body {
+        get;
+    }
 }

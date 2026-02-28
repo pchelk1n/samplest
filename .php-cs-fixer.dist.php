@@ -6,7 +6,7 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
-return (new Config())
+return new Config()
     ->setParallelConfig(ParallelConfigFactory::detect())
     ->setRiskyAllowed(true)
     ->setRules([
@@ -14,7 +14,7 @@ return (new Config())
         '@auto:risky' => true,
     ])
     ->setFinder(
-        (new Finder())
+        new Finder()
             ->in([
                 __DIR__ . '/src',
                 __DIR__ . '/app',
@@ -22,5 +22,5 @@ return (new Config())
             ])
             ->append([
                 __FILE__,
-            ])
+            ]),
     );

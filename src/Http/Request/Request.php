@@ -6,9 +6,15 @@ namespace Samplest\Http\Request;
 
 interface Request
 {
-    public function getMethod(): Method;
+    public Method $method {
+        get;
+    }
 
-    public function getUri(): string;
+    public string $uri {
+        get;
+    }
 
-    public function getBody(): array;
+    public array $body {
+        get;
+    }
 }
